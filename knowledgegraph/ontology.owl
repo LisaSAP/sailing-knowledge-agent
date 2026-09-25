@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xml:base="http://sailing-ontology.org/core">
+
+  <owl:Ontology rdf:about="http://sailing-ontology.org/core">
+    <rdfs:label xml:lang="en">Sailing Theory Ontology</rdfs:label>
+    <rdfs:label xml:lang="de">Segel-Theorie-Ontologie</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      Schema with classes, individuals, and relations for sailing theory KG.
+      English and German. No data properties. Values live in the JSON node files.
+    </rdfs:comment>
+    <rdfs:comment xml:lang="de">
+      Schema mit Klassen, Individuen und Relationen für den Segel-Theorie-Wissensgraphen.
+      Englisch und Deutsch. Keine Dateneigenschaften. Werte liegen in den JSON-Knotendateien.
+    </rdfs:comment>
+    <owl:versionInfo>4.0</owl:versionInfo>
+  </owl:Ontology>
+
+  <!-- ==================== CLASSES ==================== -->
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#SailingMetric">
+    <rdfs:label xml:lang="en">Sailing Metric</rdfs:label>
+    <rdfs:label xml:lang="de">Segelkennzahl</rdfs:label>
+    <rdfs:comment xml:lang="en">A measurable quantity used to assess sailing performance (e.g. VMG, VMC, boatSpeed, polarRatio).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine messbare Größe zur Bewertung der Segelleistung (z. B. VMG, VMC, Bootsgeschwindigkeit, Polarverhältnis).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#LegType">
+    <rdfs:label xml:lang="en">Leg Type</rdfs:label>
+    <rdfs:label xml:lang="de">Schenkeltyp</rdfs:label>
+    <rdfs:comment xml:lang="en">Classification of a race leg by wind angle (upwind, downwind, reach, start).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Klassifikation eines Rennsschenkels nach Windwinkel (am Wind, vor dem Wind, halber Wind, Start).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#Maneuver">
+    <rdfs:label xml:lang="en">Maneuver</rdfs:label>
+    <rdfs:label xml:lang="de">Manöver</rdfs:label>
+    <rdfs:comment xml:lang="en">A discrete sailing action with speed loss and recovery time (tack, gybe, mark rounding).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine einzelne Segelaktion mit Geschwindigkeitsverlust und Erholungszeit (Wende, Halse, Tonnenrundung).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#WindPattern">
+    <rdfs:label xml:lang="en">Wind Pattern</rdfs:label>
+    <rdfs:label xml:lang="de">Windmuster</rdfs:label>
+    <rdfs:comment xml:lang="en">An observable wind behavior with an optimal tactical response (lift, header, oscillating shift, pressure band, wind shadow).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Ein beobachtbares Windverhalten mit einer optimalen taktischen Reaktion (Lift, Luv-Dreher, pendelnde Winddrehung, Druckband, Windschatten).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#RightOfWayRule">
+    <rdfs:label xml:lang="en">Right Of Way Rule</rdfs:label>
+    <rdfs:label xml:lang="de">Vorfahrtsregel</rdfs:label>
+    <rdfs:comment xml:lang="en">A Racing Rules of Sailing rule defining which boat must keep clear, identified by rule number.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine Wettfahrtsegelregel (RRS), die festlegt, welches Boot ausweichen muss, identifiziert durch die Regelnummer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#PositioningConcept">
+    <rdfs:label xml:lang="en">Positioning Concept</rdfs:label>
+    <rdfs:label xml:lang="de">Positionierungskonzept</rdfs:label>
+    <rdfs:comment xml:lang="en">Where to be on the course relative to fleet, wind, and marks (covering, favored side, course center, layline).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Wo man sich auf dem Kurs relativ zur Flotte, zum Wind und zu den Tonnen aufhalten sollte (Decken, bevorzugte Seite, Kursmitte, Layline).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#WindTactic">
+    <rdfs:label xml:lang="en">Wind Tactic</rdfs:label>
+    <rdfs:label xml:lang="de">Windtaktik</rdfs:label>
+    <rdfs:comment xml:lang="en">A wind-driven decision (tack on header, gybe on header, pressure seeking).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine windabhängige Entscheidung (Wende bei Luv-Dreher, Halse bei Luv-Dreher, Drucksuche).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#DuelingTactic">
+    <rdfs:label xml:lang="en">Dueling Tactic</rdfs:label>
+    <rdfs:label xml:lang="de">Duell-Taktik</rdfs:label>
+    <rdfs:comment xml:lang="en">A 1-on-1 boat-to-boat control maneuver (lee-bow tack, covering tack, shaking cover).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Ein Boot-gegen-Boot-Kontrollmanöver im 1-gegen-1-Duell (Lee-Bug-Wende, Deckungswende, Deckungsbrechen).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#CourseManagement">
+    <rdfs:label xml:lang="en">Course Management</rdfs:label>
+    <rdfs:label xml:lang="de">Kursmanagement</rdfs:label>
+    <rdfs:comment xml:lang="en">A structural course decision (start analysis, mark rounding, gate selection, layline timing, finish approach).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine strukturelle Kursentscheidung (Startanalyse, Tonnenrundung, Torauswahl, Layline-Timing, Zielanfahrt).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#PerformanceIndicator">
+    <rdfs:label xml:lang="en">Performance Indicator</rdfs:label>
+    <rdfs:label xml:lang="de">Leistungsindikator</rdfs:label>
+    <rdfs:comment xml:lang="en">A named performance dimension with good/poor benchmarks (VMG efficiency, maneuver quality, start quality).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine benannte Leistungsdimension mit Gut-/Schlecht-Benchmarks (VMG-Effizienz, Manöverqualität, Startqualität).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://sailing-ontology.org/core#CourseMark">
+    <rdfs:label xml:lang="en">Course Mark</rdfs:label>
+    <rdfs:label xml:lang="de">Kurstonne</rdfs:label>
+    <rdfs:comment xml:lang="en">A structural element of the race course that creates tactical decisions (windward mark, leeward mark, gate, start line, finish).</rdfs:comment>
+    <rdfs:comment xml:lang="de">Ein strukturelles Element des Rennkurses, das taktische Entscheidungen erzeugt (Luvtonne, Leetonne, Tor, Startlinie, Ziel).</rdfs:comment>
+  </owl:Class>
+
+  <!-- ==================== INDIVIDUALS ==================== -->
+
+  <!-- SailingMetric individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#VMG">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">VMG</rdfs:label>
+    <rdfs:label xml:lang="de">VMG</rdfs:label>
+    <rdfs:comment xml:lang="en">Velocity Made Good — speed component directly toward or away from the wind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Velocity Made Good — Geschwindigkeitskomponente direkt zum oder vom Wind.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#VMC">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">VMC</rdfs:label>
+    <rdfs:label xml:lang="de">VMC</rdfs:label>
+    <rdfs:comment xml:lang="en">Velocity Made on Course — speed component toward the next mark.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Velocity Made on Course — Geschwindigkeitskomponente zur nächsten Tonne.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#BoatSpeed">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">Boat Speed</rdfs:label>
+    <rdfs:label xml:lang="de">Bootsgeschwindigkeit</rdfs:label>
+    <rdfs:comment xml:lang="en">Raw boat speed through the water.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Rohe Bootsgeschwindigkeit durchs Wasser.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#PolarRatio">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">Polar Ratio</rdfs:label>
+    <rdfs:label xml:lang="de">Polarverhältnis</rdfs:label>
+    <rdfs:comment xml:lang="en">Actual boat speed divided by target polar speed at the same wind angle and speed.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Tatsächliche Bootsgeschwindigkeit geteilt durch die Polarzielgeschwindigkeit beim gleichen Windwinkel und gleicher Windstärke.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#TWA">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">TWA</rdfs:label>
+    <rdfs:label xml:lang="de">TWA</rdfs:label>
+    <rdfs:comment xml:lang="en">True Wind Angle — angle between the boat heading and the true wind direction.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Wahrer Windwinkel — Winkel zwischen Bootskurs und wahrer Windrichtung.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#TWS">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">TWS</rdfs:label>
+    <rdfs:label xml:lang="de">TWS</rdfs:label>
+    <rdfs:comment xml:lang="en">True Wind Speed.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Wahre Windgeschwindigkeit.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#ManeuverLoss">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">Maneuver Loss</rdfs:label>
+    <rdfs:label xml:lang="de">Manöververlust</rdfs:label>
+    <rdfs:comment xml:lang="en">Distance or time lost through a tack or gybe compared to sailing straight.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Distanz oder Zeit, die durch eine Wende oder Halse im Vergleich zur Geradeausfahrt verloren geht.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#RecoveryTime">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">Recovery Time</rdfs:label>
+    <rdfs:label xml:lang="de">Erholungszeit</rdfs:label>
+    <rdfs:comment xml:lang="en">Time taken to return to target boat speed after a maneuver.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Zeit, die das Boot benötigt, um nach einem Manöver wieder die Zielgeschwindigkeit zu erreichen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#StartLineBias">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">Start Line Bias</rdfs:label>
+    <rdfs:label xml:lang="de">Startlinienneigung</rdfs:label>
+    <rdfs:comment xml:lang="en">Angle advantage of one end of the start line over the other relative to the wind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Winkelvorteil eines Endes der Startlinie gegenüber dem anderen relativ zum Wind.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#LaylineAngle">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:label xml:lang="en">Layline Angle</rdfs:label>
+    <rdfs:label xml:lang="de">Layline-Winkel</rdfs:label>
+    <rdfs:comment xml:lang="en">The heading at which a boat can just fetch the windward mark in one tack.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Der Kurs, mit dem ein Boot die Luvtonne in einem Schlag gerade noch erreichen kann.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- LegType individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Upwind">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#LegType"/>
+    <rdfs:label xml:lang="en">Upwind</rdfs:label>
+    <rdfs:label xml:lang="de">Am Wind</rdfs:label>
+    <rdfs:comment xml:lang="en">Beating leg sailed close-hauled toward the windward mark.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Kreuzkurs am Wind zur Luvtonne.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Downwind">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#LegType"/>
+    <rdfs:label xml:lang="en">Downwind</rdfs:label>
+    <rdfs:label xml:lang="de">Vor dem Wind</rdfs:label>
+    <rdfs:comment xml:lang="en">Running or broad-reaching leg sailed away from the wind toward the leeward mark.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Raumschotskurs oder breiter Raumschotskurs vom Wind weg zur Leetonne.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Reach">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#LegType"/>
+    <rdfs:label xml:lang="en">Reach</rdfs:label>
+    <rdfs:label xml:lang="de">Halber Wind</rdfs:label>
+    <rdfs:comment xml:lang="en">Leg sailed with the wind abeam or on the quarter.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Schenkel mit Wind querab oder achterlicher.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#StartLeg">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#LegType"/>
+    <rdfs:label xml:lang="en">Start Leg</rdfs:label>
+    <rdfs:label xml:lang="de">Startschenkel</rdfs:label>
+    <rdfs:comment xml:lang="en">The initial phase from the start signal to clearing the start line area.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die Anfangsphase vom Startsignal bis zum Verlassen des Startlinienbereichs.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- Maneuver individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Tack">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:label xml:lang="en">Tack</rdfs:label>
+    <rdfs:label xml:lang="de">Wende</rdfs:label>
+    <rdfs:comment xml:lang="en">Turning the bow through the wind to change tacks on an upwind leg.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Den Bug durch den Wind drehen, um den Schlag beim Kreuzkurs zu wechseln.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Gybe">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:label xml:lang="en">Gybe</rdfs:label>
+    <rdfs:label xml:lang="de">Halse</rdfs:label>
+    <rdfs:comment xml:lang="en">Turning the stern through the wind to change tacks on a downwind leg.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Das Heck durch den Wind drehen, um den Schlag beim Vorwindkurs zu wechseln.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#WindwardMarkRounding">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:label xml:lang="en">Windward Mark Rounding</rdfs:label>
+    <rdfs:label xml:lang="de">Luvtonnen-Rundung</rdfs:label>
+    <rdfs:comment xml:lang="en">The maneuver of rounding the top mark from upwind to downwind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Das Manöver der Rundung der Luvtonne vom Kreuzkurs zum Vorwindkurs.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#LeewardMarkRounding">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:label xml:lang="en">Leeward Mark Rounding</rdfs:label>
+    <rdfs:label xml:lang="de">Leetonnen-Rundung</rdfs:label>
+    <rdfs:comment xml:lang="en">The maneuver of rounding the bottom mark from downwind to upwind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Das Manöver der Rundung der Leetonne vom Vorwindkurs zum Kreuzkurs.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#GateRounding">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:label xml:lang="en">Gate Rounding</rdfs:label>
+    <rdfs:label xml:lang="de">Tor-Rundung</rdfs:label>
+    <rdfs:comment xml:lang="en">Choosing and rounding one of two leeward gate marks.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Auswahl und Rundung einer von zwei Leetonnen im Tor.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#StartApproach">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:label xml:lang="en">Start Approach</rdfs:label>
+    <rdfs:label xml:lang="de">Startanfahrt</rdfs:label>
+    <rdfs:comment xml:lang="en">The final maneuver sequence to arrive at the start line at full speed at the gun.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die abschließende Manöversequenz, um die Startlinie mit voller Fahrt zum Startschuss zu erreichen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- WindPattern individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Lift">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Lift</rdfs:label>
+    <rdfs:label xml:lang="de">Lift (Raumdreher)</rdfs:label>
+    <rdfs:comment xml:lang="en">Wind shift that allows a closer heading to the mark — favorable on the current tack.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Winddrehung, die einen engeren Kurs zur Tonne erlaubt — vorteilhaft auf dem aktuellen Schlag.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Header">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Header</rdfs:label>
+    <rdfs:label xml:lang="de">Luv-Dreher</rdfs:label>
+    <rdfs:comment xml:lang="en">Wind shift that forces a lower heading away from the mark — signals a tack.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Winddrehung, die einen weiteren Kurs von der Tonne weg erzwingt — signalisiert eine Wende.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#OscillatingShift">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Oscillating Shift</rdfs:label>
+    <rdfs:label xml:lang="de">Pendelnde Winddrehung</rdfs:label>
+    <rdfs:comment xml:lang="en">Regular back-and-forth wind direction swings that reward tacking on headers.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Regelmäßige Hin-und-Her-Schwingungen der Windrichtung, die Wenden bei Luv-Drehern belohnen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#PersistentShift">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Persistent Shift</rdfs:label>
+    <rdfs:label xml:lang="de">Anhaltende Winddrehung</rdfs:label>
+    <rdfs:comment xml:lang="en">A one-way trend in wind direction that rewards staying on the favored side.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Ein einseitiger Trend der Windrichtung, der belohnt, wer auf der bevorzugten Seite bleibt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#PressureBand">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Pressure Band</rdfs:label>
+    <rdfs:label xml:lang="de">Druckband</rdfs:label>
+    <rdfs:comment xml:lang="en">A zone of higher wind speed that boosts VMG for boats sailing through it.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine Zone höherer Windgeschwindigkeit, die den VMG für Boote erhöht, die sie durchfahren.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#WindShadow">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Wind Shadow</rdfs:label>
+    <rdfs:label xml:lang="de">Windschatten</rdfs:label>
+    <rdfs:comment xml:lang="en">Disturbed wind in the lee of another boat that slows a trailing competitor.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Gestörter Wind im Lee eines anderen Bootes, der einen nachfolgenden Konkurrenten verlangsamt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Gust">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Gust</rdfs:label>
+    <rdfs:label xml:lang="de">Böe</rdfs:label>
+    <rdfs:comment xml:lang="en">A short-lived increase in wind speed, often accompanied by a directional shift.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine kurzlebige Zunahme der Windgeschwindigkeit, oft begleitet von einer Richtungsänderung.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Lull">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:label xml:lang="en">Lull</rdfs:label>
+    <rdfs:label xml:lang="de">Flaute</rdfs:label>
+    <rdfs:comment xml:lang="en">A short-lived decrease in wind speed between gusts.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Eine kurzlebige Abnahme der Windgeschwindigkeit zwischen Böen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- RightOfWayRule individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Rule10PortStarboard">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:label xml:lang="en">Rule 10 Port Starboard</rdfs:label>
+    <rdfs:label xml:lang="de">Regel 10 Back-/Steuerbord</rdfs:label>
+    <rdfs:comment xml:lang="en">RRS Rule 10: a port-tack boat shall keep clear of a starboard-tack boat.</rdfs:comment>
+    <rdfs:comment xml:lang="de">WRS Regel 10: Ein Boot auf Backbordschlag muss einem Boot auf Steuerbordschlag ausweichen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Rule11Windward">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:label xml:lang="en">Rule 11 Windward</rdfs:label>
+    <rdfs:label xml:lang="de">Regel 11 Luvboot</rdfs:label>
+    <rdfs:comment xml:lang="en">RRS Rule 11: when boats are on the same tack and overlapped, the windward boat shall keep clear.</rdfs:comment>
+    <rdfs:comment xml:lang="de">WRS Regel 11: Wenn Boote auf gleichem Schlag und überlappend sind, muss das Luvboot ausweichen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Rule12Astern">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:label xml:lang="en">Rule 12 Astern</rdfs:label>
+    <rdfs:label xml:lang="de">Regel 12 Achterliches Boot</rdfs:label>
+    <rdfs:comment xml:lang="en">RRS Rule 12: when boats are on the same tack and not overlapped, the boat astern shall keep clear.</rdfs:comment>
+    <rdfs:comment xml:lang="de">WRS Regel 12: Wenn Boote auf gleichem Schlag und nicht überlappend sind, muss das achterliche Boot ausweichen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Rule18MarkRoom">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:label xml:lang="en">Rule 18 Mark Room</rdfs:label>
+    <rdfs:label xml:lang="de">Regel 18 Tonnenraum</rdfs:label>
+    <rdfs:comment xml:lang="en">RRS Rule 18: the outside boat must give the inside boat room to round or pass a mark.</rdfs:comment>
+    <rdfs:comment xml:lang="de">WRS Regel 18: Das äußere Boot muss dem inneren Boot Raum zum Runden oder Passieren einer Tonne geben.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Rule13Tacking">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:label xml:lang="en">Rule 13 Tacking</rdfs:label>
+    <rdfs:label xml:lang="de">Regel 13 Wendendes Boot</rdfs:label>
+    <rdfs:comment xml:lang="en">RRS Rule 13: a boat tacking shall keep clear of other boats until past head to wind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">WRS Regel 13: Ein wendendes Boot muss anderen Booten ausweichen, bis es über Steuer ist.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- PositioningConcept individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Covering">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Covering</rdfs:label>
+    <rdfs:label xml:lang="de">Decken</rdfs:label>
+    <rdfs:comment xml:lang="en">Staying between a rival and the next mark to block their wind and maintain lead.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Zwischen einem Rivalen und der nächsten Tonne bleiben, um seinen Wind zu blockieren und die Führung zu halten.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#FavoredSide">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Favored Side</rdfs:label>
+    <rdfs:label xml:lang="de">Bevorzugte Seite</rdfs:label>
+    <rdfs:comment xml:lang="en">The side of the course with better pressure, shift advantage, or current.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die Kursseite mit besserem Winddruck, Drehervorsprung oder Strömungsvorteil.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#CourseCenter">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Course Center</rdfs:label>
+    <rdfs:label xml:lang="de">Kursmitte</rdfs:label>
+    <rdfs:comment xml:lang="en">Staying near the middle of the course to preserve tactical options and avoid corners.</rdfs:comment>
+    <rdfs:comment xml:lang="de">In der Mitte des Kurses bleiben, um taktische Optionen zu wahren und Ecken zu vermeiden.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Layline">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Layline</rdfs:label>
+    <rdfs:label xml:lang="de">Layline</rdfs:label>
+    <rdfs:comment xml:lang="en">The heading on which a boat can just fetch the mark without another tack.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Der Kurs, mit dem ein Boot die Tonne ohne weitere Wende gerade noch erreichen kann.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#LeePosition">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Lee Position</rdfs:label>
+    <rdfs:label xml:lang="de">Lee-Position</rdfs:label>
+    <rdfs:comment xml:lang="en">Being to leeward of a rival, using the wind shadow to slow them.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Im Lee eines Rivalen liegen und dessen Windschatten nutzen, um ihn zu verlangsamen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#WindwardPosition">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Windward Position</rdfs:label>
+    <rdfs:label xml:lang="de">Luv-Position</rdfs:label>
+    <rdfs:comment xml:lang="en">Being to windward of a rival, free of their wind shadow.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Im Luv eines Rivalen liegen, frei von dessen Windschatten.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#InsidePosition">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Inside Position</rdfs:label>
+    <rdfs:label xml:lang="de">Innen-Position</rdfs:label>
+    <rdfs:comment xml:lang="en">Being on the inside of a mark rounding to gain right of way under Rule 18.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Auf der Innenseite einer Tonnenrundung liegen, um Vorfahrt nach Regel 18 zu gewinnen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#CornerAvoidance">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:label xml:lang="en">Corner Avoidance</rdfs:label>
+    <rdfs:label xml:lang="de">Ecken meiden</rdfs:label>
+    <rdfs:comment xml:lang="en">Staying away from the edges of the course to avoid being on the wrong side of a shift.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Von den Kursrändern fernbleiben, um nicht auf der falschen Seite einer Winddrehung zu liegen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- WindTactic individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#TackOnHeader">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Tack On Header</rdfs:label>
+    <rdfs:label xml:lang="de">Wende bei Luv-Dreher</rdfs:label>
+    <rdfs:comment xml:lang="en">Tacking whenever the wind shifts to a header to stay on the lifted tack.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Bei jedem Luv-Dreher wenden, um auf dem gelifteten Schlag zu bleiben.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#GybeOnHeader">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Gybe On Header</rdfs:label>
+    <rdfs:label xml:lang="de">Halse bei Luv-Dreher</rdfs:label>
+    <rdfs:comment xml:lang="en">Gybing whenever the wind shifts to a header on a downwind leg to stay on the lifted gybe.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Beim Vorwindkurs bei jedem Luv-Dreher halsen, um auf dem gelifteten Schlag zu bleiben.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#PressureSeeking">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Pressure Seeking</rdfs:label>
+    <rdfs:label xml:lang="de">Drucksuche</rdfs:label>
+    <rdfs:comment xml:lang="en">Sailing toward visible gusts or pressure bands to maximize boat speed.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Auf sichtbare Böen oder Druckbänder zuhalten, um die Bootsgeschwindigkeit zu maximieren.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#FavoredTackStrategy">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Favored Tack Strategy</rdfs:label>
+    <rdfs:label xml:lang="de">Bevorzugter-Schlag-Strategie</rdfs:label>
+    <rdfs:comment xml:lang="en">Spending maximum time on the tack that points closest to the windward mark.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Maximale Zeit auf dem Schlag verbringen, der am direktesten zur Luvtonne zeigt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#PersistentShiftPlay">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Persistent Shift Play</rdfs:label>
+    <rdfs:label xml:lang="de">Anhaltende Dreher spielen</rdfs:label>
+    <rdfs:comment xml:lang="en">Committing to the favored side early when a persistent wind shift is forecast.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Früh auf die bevorzugte Seite wechseln, wenn eine anhaltende Winddrehung prognostiziert wird.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#ShiftAnticipation">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Shift Anticipation</rdfs:label>
+    <rdfs:label xml:lang="de">Dreher-Antizipation</rdfs:label>
+    <rdfs:comment xml:lang="en">Reading oscillating patterns to pre-position before the next shift arrives.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Pendelnde Muster lesen, um sich vor dem nächsten Dreher zu positionieren.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#WindShadowAvoidance">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:label xml:lang="en">Wind Shadow Avoidance</rdfs:label>
+    <rdfs:label xml:lang="de">Windschatten meiden</rdfs:label>
+    <rdfs:comment xml:lang="en">Tactically sailing clear of a rival's wind shadow to maintain boat speed.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Taktisch aus dem Windschatten eines Rivalen herausfahren, um die Bootsgeschwindigkeit zu erhalten.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- DuelingTactic individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#LeeBowTack">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:label xml:lang="en">Lee Bow Tack</rdfs:label>
+    <rdfs:label xml:lang="de">Lee-Bug-Wende</rdfs:label>
+    <rdfs:comment xml:lang="en">Tacking just ahead and to leeward of a rival so their wind shadow slows them.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Knapp vor und im Lee eines Rivalen wenden, sodass dessen Windschatten ihn verlangsamt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#CoveringTack">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:label xml:lang="en">Covering Tack</rdfs:label>
+    <rdfs:label xml:lang="de">Deckungswende</rdfs:label>
+    <rdfs:comment xml:lang="en">Tacking immediately after a rival tacks to stay between them and the mark.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Sofort wenden, nachdem ein Rivale gewendet hat, um zwischen ihm und der Tonne zu bleiben.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#ShakingCover">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:label xml:lang="en">Shaking Cover</rdfs:label>
+    <rdfs:label xml:lang="de">Deckung brechen</rdfs:label>
+    <rdfs:comment xml:lang="en">Feinting or sailing away briefly to break an opponent's cover and gain freedom.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Kurz täuschen oder wegfahren, um die Deckung eines Gegners zu brechen und freien Wind zu gewinnen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#TransomSeat">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:label xml:lang="en">Transom Seat</rdfs:label>
+    <rdfs:label xml:lang="de">Heck-Position</rdfs:label>
+    <rdfs:comment xml:lang="en">Deliberately sailing behind a rival's transom to avoid their wind shadow and gain clear air.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Bewusst hinter dem Heck eines Rivalen fahren, um dessen Windschatten zu vermeiden und freien Wind zu gewinnen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#BoatOnBoatControl">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:label xml:lang="en">Boat On Boat Control</rdfs:label>
+    <rdfs:label xml:lang="de">Boot-gegen-Boot-Kontrolle</rdfs:label>
+    <rdfs:comment xml:lang="en">General 1-on-1 position management to maintain tactical superiority over one rival.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Allgemeines 1-gegen-1-Positionsmanagement, um taktische Überlegenheit über einen Rivalen zu behalten.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Starving">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:label xml:lang="en">Starving</rdfs:label>
+    <rdfs:label xml:lang="de">Aushungern</rdfs:label>
+    <rdfs:comment xml:lang="en">Sailing high to blanket a rival's wind and force them to slow or tack away.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Hoch aufluven, um den Wind eines Rivalen abzudecken und ihn zum Verlangsamen oder Wenden zu zwingen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- CourseManagement individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#StartLineAnalysis">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Start Line Analysis</rdfs:label>
+    <rdfs:label xml:lang="de">Startlinien-Analyse</rdfs:label>
+    <rdfs:comment xml:lang="en">Assessing which end of the start line is favored and planning the approach.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Bewertung, welches Ende der Startlinie bevorzugt ist, und Planung der Anfahrt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#MarkRoundingStrategy">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Mark Rounding Strategy</rdfs:label>
+    <rdfs:label xml:lang="de">Tonnenrundungs-Strategie</rdfs:label>
+    <rdfs:comment xml:lang="en">Planning the approach and exit angle for a mark to minimize distance sailed.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Planung von Anfahrts- und Abfahrtswinkel einer Tonne, um die gesegelte Distanz zu minimieren.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#GateSelection">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Gate Selection</rdfs:label>
+    <rdfs:label xml:lang="de">Torauswahl</rdfs:label>
+    <rdfs:comment xml:lang="en">Choosing which gate mark to round based on the favored side of the next upwind leg.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Auswahl der zu rundenden Tontonne basierend auf der bevorzugten Seite des nächsten Aufwindschenkels.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#LaylineTiming">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Layline Timing</rdfs:label>
+    <rdfs:label xml:lang="de">Layline-Timing</rdfs:label>
+    <rdfs:comment xml:lang="en">Deciding when to commit to the final tack to the windward mark without overshooting.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Entscheidung, wann der letzte Schlag zur Luvtonne eingeleitet wird, ohne zu überschießen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#FinishApproach">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Finish Approach</rdfs:label>
+    <rdfs:label xml:lang="de">Zielanfahrt</rdfs:label>
+    <rdfs:comment xml:lang="en">Selecting the favored end of the finish line and planning the final approach.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Das bevorzugte Ende der Ziellinie wählen und die Anfahrt planen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#CourseSelection">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Course Selection</rdfs:label>
+    <rdfs:label xml:lang="de">Kursauswahl</rdfs:label>
+    <rdfs:comment xml:lang="en">Choosing which side of the course to sail based on wind, current, and fleet position.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Wahl der zu segelnden Kursseite basierend auf Wind, Strömung und Flottenposition.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#FleetAwareness">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:label xml:lang="en">Fleet Awareness</rdfs:label>
+    <rdfs:label xml:lang="de">Flottenüberblick</rdfs:label>
+    <rdfs:comment xml:lang="en">Tracking the position of the fleet to avoid being covered and to exploit gaps.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die Position der Flotte verfolgen, um Deckungen zu vermeiden und Lücken zu nutzen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- PerformanceIndicator individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#VMGEfficiency">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">VMG Efficiency</rdfs:label>
+    <rdfs:label xml:lang="de">VMG-Effizienz</rdfs:label>
+    <rdfs:comment xml:lang="en">How close a sailor's actual VMG is to the polar optimum for the wind conditions.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Wie nah der tatsächliche VMG eines Seglers am Polaroptimum für die Windbedingungen liegt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#ManeuverQuality">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">Maneuver Quality</rdfs:label>
+    <rdfs:label xml:lang="de">Manöverqualität</rdfs:label>
+    <rdfs:comment xml:lang="en">Speed loss and recovery time through tacks and gybes relative to fleet average.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Geschwindigkeitsverlust und Erholungszeit bei Wenden und Halsen im Vergleich zum Flottendurchschnitt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#StartQuality">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">Start Quality</rdfs:label>
+    <rdfs:label xml:lang="de">Startqualität</rdfs:label>
+    <rdfs:comment xml:lang="en">Position, speed, and timing at the start gun relative to the favored end.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Position, Geschwindigkeit und Timing beim Startschuss relativ zum bevorzugten Ende.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#TacticalDecisionQuality">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">Tactical Decision Quality</rdfs:label>
+    <rdfs:label xml:lang="de">Taktische Entscheidungsqualität</rdfs:label>
+    <rdfs:comment xml:lang="en">How well tack/gybe decisions aligned with wind shifts and fleet movements.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Wie gut Wende-/Halsen-Entscheidungen mit Winddrehungen und Flottenbewegungen übereinstimmten.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#MarkRoundingQuality">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">Mark Rounding Quality</rdfs:label>
+    <rdfs:label xml:lang="de">Tonnenrundungsqualität</rdfs:label>
+    <rdfs:comment xml:lang="en">Speed and positional gain or loss at each mark rounding.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Geschwindigkeit und Positionsgewinn oder -verlust bei jeder Tonnenrundung.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#BoatSpeedPerformance">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">Boat Speed Performance</rdfs:label>
+    <rdfs:label xml:lang="de">Bootsgeschwindigkeitsleistung</rdfs:label>
+    <rdfs:comment xml:lang="en">Raw speed relative to polar targets and fleet average in the same conditions.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Rohgeschwindigkeit relativ zu Polarzielen und Flottendurchschnitt unter gleichen Bedingungen.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#OverallLegPerformance">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+    <rdfs:label xml:lang="en">Overall Leg Performance</rdfs:label>
+    <rdfs:label xml:lang="de">Gesamtschenkelleistung</rdfs:label>
+    <rdfs:comment xml:lang="en">Composite gain or loss on a leg relative to the fleet, combining speed and tactics.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Zusammengesetzter Gewinn oder Verlust auf einem Schenkel relativ zur Flotte, Geschwindigkeit und Taktik kombiniert.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- CourseMark individuals -->
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#WindwardMark">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:label xml:lang="en">Windward Mark</rdfs:label>
+    <rdfs:label xml:lang="de">Luvtonne</rdfs:label>
+    <rdfs:comment xml:lang="en">The top mark at the upwind end of the beat, where boats transition from upwind to downwind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die obere Tonne am Aufwindende des Kreuzens, wo Boote vom Kreuzkurs zum Vorwindkurs wechseln.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#LeewardMark">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:label xml:lang="en">Leeward Mark</rdfs:label>
+    <rdfs:label xml:lang="de">Leetonne</rdfs:label>
+    <rdfs:comment xml:lang="en">The bottom mark at the downwind end, where boats transition from downwind to upwind.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die untere Tonne am Vorwindende, wo Boote vom Vorwindkurs zum Kreuzkurs wechseln.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#Gate">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:label xml:lang="en">Gate</rdfs:label>
+    <rdfs:label xml:lang="de">Tor</rdfs:label>
+    <rdfs:comment xml:lang="en">Two leeward marks set side by side; boats choose which one to round.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Zwei nebeneinander gesetzte Leetonnen; Boote wählen, welche sie runden.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#StartLine">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:label xml:lang="en">Start Line</rdfs:label>
+    <rdfs:label xml:lang="de">Startlinie</rdfs:label>
+    <rdfs:comment xml:lang="en">The line between the committee boat and the pin end mark where the race begins.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die Linie zwischen dem Komiteeboot und der Pinne-Endtonne, an der das Rennen beginnt.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <owl:NamedIndividual rdf:about="http://sailing-ontology.org/core#FinishLine">
+    <rdf:type rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:label xml:lang="en">Finish Line</rdfs:label>
+    <rdfs:label xml:lang="de">Ziellinie</rdfs:label>
+    <rdfs:comment xml:lang="en">The line that boats must cross to complete the race.</rdfs:comment>
+    <rdfs:comment xml:lang="de">Die Linie, die Boote überqueren müssen, um das Rennen zu beenden.</rdfs:comment>
+  </owl:NamedIndividual>
+
+  <!-- ==================== OBJECT PROPERTIES (relations) ==================== -->
+
+  <!-- Course Mark relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#affects">
+    <rdfs:label xml:lang="en">affects</rdfs:label>
+    <rdfs:label xml:lang="de">beeinflusst</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#LegType"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#changes">
+    <rdfs:label xml:lang="en">changes</rdfs:label>
+    <rdfs:label xml:lang="de">ändert</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+  </owl:ObjectProperty>
+
+  <!-- SailingMetric relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#relevantFor">
+    <rdfs:label xml:lang="en">relevant for</rdfs:label>
+    <rdfs:label xml:lang="de">relevant für</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#LegType"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#measuredDuring">
+    <rdfs:label xml:lang="en">measured during</rdfs:label>
+    <rdfs:label xml:lang="de">gemessen während</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#quantifies">
+    <rdfs:label xml:lang="en">quantifies</rdfs:label>
+    <rdfs:label xml:lang="de">quantifiziert</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+
+  <!-- Maneuver relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#affectsMetric">
+    <rdfs:label xml:lang="en">affects metric</rdfs:label>
+    <rdfs:label xml:lang="de">beeinflusst Kennzahl</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#SailingMetric"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#occursAt">
+    <rdfs:label xml:lang="en">occurs at</rdfs:label>
+    <rdfs:label xml:lang="de">tritt auf bei</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#Maneuver"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+  </owl:ObjectProperty>
+
+  <!-- WindPattern relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#triggers">
+    <rdfs:label xml:lang="en">triggers</rdfs:label>
+    <rdfs:label xml:lang="de">löst aus</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#enables">
+    <rdfs:label xml:lang="en">enables</rdfs:label>
+    <rdfs:label xml:lang="de">ermöglicht</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#WindPattern"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+  </owl:ObjectProperty>
+
+  <!-- WindTactic relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#windTacticImpacts">
+    <rdfs:label xml:lang="en">impacts</rdfs:label>
+    <rdfs:label xml:lang="de">wirkt auf</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#usedOn">
+    <rdfs:label xml:lang="en">used on</rdfs:label>
+    <rdfs:label xml:lang="de">eingesetzt auf</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#WindTactic"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#LegType"/>
+  </owl:ObjectProperty>
+
+  <!-- PositioningConcept relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#appliesAt">
+    <rdfs:label xml:lang="en">applies at</rdfs:label>
+    <rdfs:label xml:lang="de">gilt bei</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#appliesIn">
+    <rdfs:label xml:lang="en">applies in</rdfs:label>
+    <rdfs:label xml:lang="de">gilt in</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#LegType"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#positioningImpacts">
+    <rdfs:label xml:lang="en">impacts</rdfs:label>
+    <rdfs:label xml:lang="de">wirkt auf</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+
+  <!-- DuelingTactic relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#requires">
+    <rdfs:label xml:lang="en">requires</rdfs:label>
+    <rdfs:label xml:lang="de">erfordert</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#duelingImpacts">
+    <rdfs:label xml:lang="en">impacts</rdfs:label>
+    <rdfs:label xml:lang="de">wirkt auf</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#usedIn">
+    <rdfs:label xml:lang="en">used in</rdfs:label>
+    <rdfs:label xml:lang="de">eingesetzt in</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#LegType"/>
+  </owl:ObjectProperty>
+
+  <!-- CourseManagement relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#relevantAt">
+    <rdfs:label xml:lang="en">relevant at</rdfs:label>
+    <rdfs:label xml:lang="de">relevant bei</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#courseImpacts">
+    <rdfs:label xml:lang="en">impacts</rdfs:label>
+    <rdfs:label xml:lang="de">wirkt auf</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#CourseManagement"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+
+  <!-- RightOfWayRule relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#constrainsDueling">
+    <rdfs:label xml:lang="en">constrains</rdfs:label>
+    <rdfs:label xml:lang="de">schränkt ein</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#DuelingTactic"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#constrainsPositioning">
+    <rdfs:label xml:lang="en">constrains</rdfs:label>
+    <rdfs:label xml:lang="de">schränkt ein</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#RightOfWayRule"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PositioningConcept"/>
+  </owl:ObjectProperty>
+
+  <!-- LegType relations -->
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#prioritizes">
+    <rdfs:label xml:lang="en">prioritizes</rdfs:label>
+    <rdfs:label xml:lang="de">priorisiert</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#LegType"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://sailing-ontology.org/core#featuredOn">
+    <rdfs:label xml:lang="en">featured on</rdfs:label>
+    <rdfs:label xml:lang="de">kommt vor auf</rdfs:label>
+    <rdfs:domain rdf:resource="http://sailing-ontology.org/core#LegType"/>
+    <rdfs:range rdf:resource="http://sailing-ontology.org/core#CourseMark"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

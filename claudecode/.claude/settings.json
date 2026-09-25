@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 sap_api.py *)",
+      "Skill(sailing-analysis)",
+      "Skill(sailing-sap-api)",
+      "mcp__oneai-chat__*"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "oneai-chat",
+    "sailing-kg"
+  ],
+  "disabledMcpjsonServers": [],
+  "claudeMdExcludes": [
+    "**/*"
+  ],
+  "skillOverrides": {
+    "sailing-analysis": "on",
+    "sailing-sap-api": "on"
+  },
+  "autoMemory": false
+}

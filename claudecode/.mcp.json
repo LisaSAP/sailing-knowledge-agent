@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "oneai-chat": {
+      "type": "http",
+      "url": "https://oneai-api.cfapps.eu10-004.hana.ondemand.com/oneai/chatbot/mcp/v1",
+      "headers": {
+        "oneai-publickey": "13b5358f-20e1-4361-af76-1683952da347"
+      }
+    },
+    "sailing-kg": {
+      "command": "python3",
+      "args": ["../knowledgegraph/2_mcp_server.py"],
+      "cwd": ".."
+    }
+  }
+}

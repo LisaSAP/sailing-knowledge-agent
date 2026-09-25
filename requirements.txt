@@ -1,0 +1,17 @@
+# ── Core KG pipeline ──────────────────────────────────────────────────────────
+cognee[docs]==1.5.4           # KG construction + vector/graph store
+docling==2.126.0              # PDF extraction + HybridChunker
+docling-core==2.95.0          # Docling data models (DoclingDocument, ProvenanceItem, ...)
+rdflib==7.1.4                 # OWL ontology loading (RDFLibOntologyResolver)
+
+# ── LLM / Anthropic ───────────────────────────────────────────────────────────
+anthropic==1.5.0              # Anthropic SDK (Claude API)
+
+# ── MCP server ────────────────────────────────────────────────────────────────
+mcp==1.30.0                   # MCP server framework (MCPServer, @mcp.tool)
+
+# ── SAP API calls ─────────────────────────────────────────────────────────────
+httpx==0.28.1                 # HTTP client for SAP Sailing API
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv==1.2.3          # .env loading
